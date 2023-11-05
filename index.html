@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Name Vibration Calculator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibration Calculator</title>
 </head>
 <body>
-  <div class="box">
-    <h1>Name Vibration Calculator</h1>
-    <input type="text" id="nameInput" placeholder="Enter a name">
-    <button onclick="calculateVibration()">Calculate Vibration</button>
-    <br><br>
-    <div id="output"></div>
-  </div>
 
-  <script src="script.js"></script>
+<textarea id="namesTextarea" placeholder="Enter names separated by newline or comma" rows="10" cols="30"></textarea>
+<button onclick="processNames()">Calculate Vibration</button>
+
+<div id="output"></div>
+
+<script src="script.js"></script>  <!-- Assuming your JS is in a file named 'script.js' -->
 </body>
 </html>

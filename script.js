@@ -1,54 +1,54 @@
 function getVibrationValue(char) {
-  const charCode = char.toLowerCase().charCodeAt(0);
-  if (charCode >= 97 && charCode <= 122) {
-    return charCode - 96; // 'a' has vibration value 1, 'b' has vibration value 2, and so on
-  }
-  return 0; // If the character is not a letter, return 0
+    const charCode = char.toLowerCase().charCodeAt(0);
+    if (charCode >= 97 && charCode <= 122) {
+        return charCode - 96;
+    }
+    return 0;
 }
 
-function calculateVibration() {
-  const nameInput = document.getElementById('nameInput');
-  const name = nameInput.value.trim();
-
-  if (name === '') {
-    return; // Exit if input is empty
-  }
-
-  let vowelSum = 0;
-  let consonantSum = 0;
-
-  for (let i = 0; i < name.length; i++) {
-    const char = name[i];
-    const vibrationValue = getVibrationValue(char);
-
-    if (vibrationValue > 0) {
-      if (char.toLowerCase().match(/[aeiou]/)) {
-        vowelSum += vibrationValue;
-      } else {
-        consonantSum += vibrationValue;
-      }
+function calculateVibration(name) {
+    if (name === '') {
+        return '';
     }
-  }
 
-  const reduceToSingleDigit = (sum) => {
-    while (sum > 9) {
-      sum = sum
-        .toString()
-        .split('')
-        .map(Number)
-        .reduce((a, b) => a + b);
+    let vowelSum = 0;
+    let consonantSum = 0;
+
+    for (let i = 0; i < name.length; i++) {
+        const char = name[i];
+        const vibrationValue = getVibrationValue(char);
+        if (vibrationValue > 0) {
+            if (char.toLowerCase().match(/[aeiou]/)) {
+                vowelSum += vibrationValue;
+            } else {
+                consonantSum += vibrationValue;
+            }
+        }
     }
-    return sum;
-  };
 
-  const vowelVibration = reduceToSingleDigit(vowelSum);
-  const consonantVibration = reduceToSingleDigit(consonantSum);
-  const finalSum = reduceToSingleDigit(vowelVibration + consonantVibration);
+    const reduceToSingleDigit = (sum) => {
+        while (sum > 9) {
+            sum = sum.toString().split('').map(Number).reduce((a, b) => a + b);
+        }
+        return sum;
+    };
 
-  const outputDiv = document.getElementById('output');
-  const result = `The 3 digit vibration for input '${name}' is ${vowelVibration} | ${consonantVibration} | ${finalSum}`;
-  outputDiv.innerHTML = result;
+    const vowelVibration = reduceToSingleDigit(vowelSum);
+    const consonantVibration = reduceToSingleDigit(consonantSum);
+    const finalSum = reduceToSingleDigit(vowelVibration + consonantVibration);
+
+    return `The 3 digit vibration for input '${name}' is ${vowelVibration} | ${consonantVibration} | ${finalSum}`;
 }
 
-// Example usage
-// You can remove the previous usage example
+function processNames() {
+    const textareaValue = document.getElementById('namesTextarea').value;
+    const names = textareaValue.split(/[\n,]+/).map(name => name.trim());
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+
+    names.forEach(name => {
+        if (name) { // To prevent processing empty names
+            outputDiv.innerHTML += calculateVibration(name) + '<br>';
+        }
+    });
+}
