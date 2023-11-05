@@ -6,6 +6,7 @@ function getVibrationValue(char) {
     return 0;
 }
 
+
 function calculateVibration(name) {
     if (name === '') {
         return '';
